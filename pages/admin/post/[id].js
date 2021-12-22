@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import querys from "utils/querys";
 import styles from './post.module.scss'
-import { blockMockup, usid } from 'utils';
+import { blockMockup } from 'utils/mockups';
+import { usid } from 'utils';
 import { BlocksWithEdit } from 'components/Blocks';
 
 

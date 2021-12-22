@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { usid } from 'utils';
 import styles from './ListPostsEdit.module.css';
 import querys from "utils/querys";
-import { postMockup } from 'utils';
+import { postMockup } from 'utils/mockups';
 import Link from 'next/link';
 
 const ListPostsEdit = () => {

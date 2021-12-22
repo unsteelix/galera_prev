@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { usid } from 'utils';
 import styles from './ListPathsEdit.module.css';
 import querys from "utils/querys";
-import { postMockup, pathMockup } from 'utils';
+import { postMockup, pathMockup } from 'utils/mockups';
 
 const ListPathsEdit = () => {
 
