@@ -1,0 +1,40 @@
+.wrap {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    border-top: 1px solid gainsboro;
+    border-bottom: 1px solid gainsboro;
+}
+
+.buttons {
+    display: flex;
+    flex-direction: column;
+
+    width: 80px;
+    border-right: 1px solid gainsboro;
+
+    .oneBtn {
+        padding: 1rem;
+        font-size: 1rem;
+        border-bottom: 1px solid gainsboro;
+
+        &:hover{
+            color: gainsboro;
+        }
+
+        .btnSave, .btnDelete {
+            cursor: pointer;
+        }
+
+        .positionInput {
+            width: 100%;
+        }
+    }
+}
+
+.edits {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}

@@ -1,0 +1,12 @@
+.wrap {
+    border: 1px solid gainsboro;
+    padding: 0.5rem;
+
+    .oneType {
+        cursor: pointer;
+
+        &:hover {
+            opacity: 0.9;
+        }
+    }
+}

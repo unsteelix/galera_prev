@@ -1,0 +1,16 @@
+.wrap {
+    min-height: 4rem;
+    width: 100%;
+}
+
+.loadingState {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+
+    font-size: 3rem;
+    padding: 5rem;
+    color: rgb(39, 39, 39);
+}

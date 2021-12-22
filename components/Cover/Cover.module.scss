@@ -1,0 +1,23 @@
+.wrap {
+    width: 300px;
+    height: 300px;
+    position: relative;
+    cursor: pointer;
+
+    .post {
+        .title {
+            z-index: 1;
+            position: absolute;
+            bottom: 120px;
+            width: 100%;
+            text-align: center;
+            padding: 1rem;
+            color: ghostwhite;
+            font-size: 1.5rem;
+        }
+    }
+
+    .folder {
+
+    }
+}

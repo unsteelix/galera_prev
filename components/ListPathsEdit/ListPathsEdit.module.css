@@ -1,0 +1,100 @@
+.wrap {
+    padding: 1rem;
+    border: 1px solid #e3e3e3;
+    width: 1000px;
+}
+
+.listPaths {
+    display: flex;
+    flex-direction: column;
+}
+
+.onePath {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    align-content: center;
+
+    padding: 0rem;
+    background-color: #ffffff;
+    border-bottom: 1px solid #e3e3e3;
+}
+
+.onePath:last-child {
+    border-bottom: none;
+}
+
+.onePath input {
+    outline: none;
+    border: none;
+    font-size: 1.0rem;
+    width: 100%;
+    height: 100%;
+    padding: 0.4rem;
+}
+
+.onePath input:hover {
+    background-color: whitesmoke;
+}
+
+.path {
+    min-width: 200px;
+}
+
+.type {
+    min-width: 60px;
+    max-width: 60px;
+}
+
+.title {
+    min-width: 200px;
+}
+
+.post {
+    min-width: 160px;
+}
+
+.img {
+    min-width: 60px;
+}
+
+.priority {
+    min-width: 30px;
+}
+
+.isHidden {
+    min-width: 50px;
+    max-width: 50px;
+}
+
+.deleteBtn {
+    width: 50px;
+    cursor: pointer;
+    margin: 0 1rem;
+}
+
+.deleteBtn:hover {
+    color: #646464;
+}
+
+.updateBtn {
+    width: 50px;
+    cursor: pointer;
+}
+
+.updateBtn:hover {
+    color: #646464;
+}
+
+.addBtn {
+    width: max-content;
+    cursor: pointer;
+    padding: 0.4rem 0.5rem 0.4rem 0.5rem ;
+    border: 1px solid #e3e3e3;
+}
+
+.addBtn:hover {
+    color: #646464;
+    border: 1px solid #646464;
+}
