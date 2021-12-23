@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import querys from "utils/querys";
 import styles from './post.module.scss'
 import { blockMockup } from 'utils/mockups';
-import { usid } from 'utils';
 import { BlocksWithEdit } from 'components/Blocks';
+import Head from 'next/head'
+import { uid } from 'uid/secure';
 
 
 const PostEdit = (props) => {
@@ -12,7 +13,7 @@ const PostEdit = (props) => {
   const [blocks, setBlocks] = useState(props.post.data);
 
   const onAddBtn = async () => {
-    const newId = usid.uuid()
+    const newId = uid(14)
 
     const count = await querys.countPostBlocks(post.id)
 
@@ -32,7 +33,9 @@ const PostEdit = (props) => {
 
   return (
     <div className={styles.wrap}>
-
+      <Head>
+        <title>Admin post: {post.title}</title>
+      </Head>
       <div className={styles.onAddBtn} onClick={() => onAddBtn()}>add block</div>
 
       <div className={styles.title}>{post.title}</div>

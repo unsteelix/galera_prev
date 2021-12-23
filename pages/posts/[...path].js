@@ -7,7 +7,7 @@ import styles from './posts.module.scss'
 export default function Post(props) {
 
     const { data } = props;
-    const { type, path, paths, payload } = data;
+    const { type, path, payload } = data;
 
     const title = path.title
 

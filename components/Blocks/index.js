@@ -8,7 +8,7 @@ export const BlocksWithEdit = ({post}) => {
     
     const sortedList = list.sort((a, b) => a.position - b.position)
 
-    return sortedList.map(el => <div key={el.id}><OneBlock post={post} block={el} /></div>)
+    return sortedList.map(el => <div key={'block-' + el.id}><OneBlock post={post} block={el} /></div>)
 }
 
 export const Blocks = ({post}) => {

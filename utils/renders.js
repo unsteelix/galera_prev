@@ -1,7 +1,9 @@
 import mdRender from 'components/renders/md';
 import imgRender from 'components/renders/img';
-import { Blocks } from 'components/Blocks';
-import Covers from 'components/Covers';
+import Folder from 'components/Folder';
+import Post from 'components/Post';
+import ErrorBlock from 'components/ErrorBlock';
+
 
 const renders = {
     md: mdRender,
@@ -19,31 +21,26 @@ export const renderTypes = [
     }
 ]
 
-
 export const renderBlock = (block) => {
-    const { type } = block;
-
     try {
+        
+        const { type } = block;
+        if (!type) throw new Error('render method not found. Try "md", "img"')
+
         return renders[type](block)
     } catch(e) {
-        throw new Error('render method not found. Try "md", "img"')
+        console.error(`failed rendering ${type} block: ` + e.message)
+        return <ErrorBlock text={e.message} />
     }
 }
 
-export const renderPost = (post) => {
-    return <Blocks post={post} />
-}
-
-export const renderFolder = (children) => {
-    return <Covers paths={children} />
-}
 
 export const renderPageByType = (type, payload) => {
     if(type === 'post') {
-        return renderPost(payload)
+        return <Post post={payload} />
     }
     if(type === 'folder') {
-        return renderFolder(payload)
+        return <Folder children={payload} />
     }
 }
 

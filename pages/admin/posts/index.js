@@ -1,16 +1,27 @@
-import React, { useState } from 'react';
-//import dynamic from 'next/dynamic'
+import React from 'react';
 import ListPathsEdit from 'components/ListPathsEdit'
 import ListPostsEdit from 'components/ListPostsEdit'
-import styles from './posts.module.css'
+import styles from './posts.module.scss'
+import Head from 'next/head'
 
-//const DynamicComponent = dynamic(() => import('/components/hello'))
 
 
 export default function () {
 
-  return <div className={styles.posts}>
-    <ListPathsEdit />
-    <ListPostsEdit />
-  </div>
+  return (<>
+    <Head>
+      <title>Admin posts</title>
+    </Head>
+
+    <div className={styles.wrap}>
+      <div className={styles.title}>
+        Paths
+      </div>
+      <ListPathsEdit />
+      <div className={styles.title}>
+        Posts
+      </div>
+      <ListPostsEdit />
+    </div>
+  </>)
 }

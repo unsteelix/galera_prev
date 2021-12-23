@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { usid } from 'utils';
-import styles from './ListPathsEdit.module.css';
+import styles from './ListPathsEdit.module.scss';
 import querys from "utils/querys";
 import { postMockup, pathMockup } from 'utils/mockups';
+import { uid } from 'uid/secure';
 
 const ListPathsEdit = () => {
 
@@ -44,8 +44,12 @@ const ListPathsEdit = () => {
   }
     
   const onDeletePathBtn = async (id) => {
-    await querys.deletePath(id)
-    updatePaths()
+    const needDeleting = confirm('Точно удалить путь?')
+
+    if(needDeleting) {
+      await querys.deletePath(id)
+      updatePaths()
+    }
   }
 
   const onUpdatePathBtn = async (id, path) => {
@@ -54,7 +58,7 @@ const ListPathsEdit = () => {
   }
 
   const onAddPathBtn = async () => {
-    const newId = usid.uuid()
+    const newId = uid(14)
     await querys.updatePath(newId, {
       ...pathMockup,
       id: newId

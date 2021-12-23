@@ -1,12 +1,12 @@
 import Head from 'next/head'
 import { getPageTypeAndData } from 'utils'
-import { renderPageByType } from 'utils/renders'
+import Folder from 'components/Folder'
 import styles from './posts.module.scss'
 
 export default function AllPost(props) {
 
     const { data } = props;
-    const { type, path, paths, payload } = data;
+    const { path, payload } = data;
 
     const title = path.title
 
@@ -16,8 +16,8 @@ export default function AllPost(props) {
                 <title>{title}</title>
                 <meta name="description" content={title} />
             </Head>
-            <div className={type === 'post' ? styles.post : styles.folder}>
-                {renderPageByType(type, payload)}
+            <div className={styles.wrap}>
+                <Folder children={payload} />
             </div>
         </>
     )

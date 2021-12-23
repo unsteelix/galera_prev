@@ -1,31 +1,46 @@
 .wrap {
-    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+
+    height: fit-content;
     border: 1px solid #e3e3e3;
-    width: 1000px;
+    padding: 1rem;
 }
 
-.listPaths {
+.listPosts {
     display: flex;
     flex-direction: column;
 }
 
-.onePath {
+.onePost {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: stretch; 
     align-items: center;
     align-content: center;
 
-    padding: 0rem;
+    padding: 0.4rem 0.5rem 0.4rem 0.5rem ;
     background-color: #ffffff;
     border-bottom: 1px solid #e3e3e3;
 }
 
-.onePath:last-child {
+.onePost:last-child {
     border-bottom: none;
 }
 
-.onePath input {
+.id {
+    min-width: 170px;
+    max-width: 170px;
+}
+
+.title {
+    min-width: 300px;
+    width: 100%;
+    margin: 0 1rem;
+}
+
+.onePost input {
     outline: none;
     border: none;
     font-size: 1.0rem;
@@ -34,38 +49,8 @@
     padding: 0.4rem;
 }
 
-.onePath input:hover {
+.onePost input:hover {
     background-color: whitesmoke;
-}
-
-.path {
-    min-width: 200px;
-}
-
-.type {
-    min-width: 60px;
-    max-width: 60px;
-}
-
-.title {
-    min-width: 200px;
-}
-
-.post {
-    min-width: 160px;
-}
-
-.img {
-    min-width: 60px;
-}
-
-.priority {
-    min-width: 30px;
-}
-
-.isHidden {
-    min-width: 50px;
-    max-width: 50px;
 }
 
 .deleteBtn {
@@ -76,6 +61,19 @@
 
 .deleteBtn:hover {
     color: #646464;
+}
+
+.editBtn {
+    cursor: pointer;
+    padding: 0 1rem;
+    width: min-content;
+    padding: 0.3rem 0.5rem;
+    margin-right: 0.5rem;
+}
+
+.editBtn:hover {
+    color: white;
+    background-color: cadetblue;
 }
 
 .updateBtn {
@@ -92,6 +90,7 @@
     cursor: pointer;
     padding: 0.4rem 0.5rem 0.4rem 0.5rem ;
     border: 1px solid #e3e3e3;
+    margin-top: 1rem;
 }
 
 .addBtn:hover {

@@ -157,34 +157,35 @@ export const updatePostData = async (id, data) => {
 }
 
 export const updatePostDataBlock = async (postId, block) => {
-    const res = await fetch(`${lowback_url}/merge/galera/posts/${postId}/data/${block.id}`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${lowback_token}`,
-        },
-        body: JSON.stringify(block)
-    })
+    try {
+        const res = await axios.post(`${lowback_url}/merge/galera/posts/${postId}/data/${block.id}`, JSON.stringify(block), {
+            headers: {
+                "Content-type": "application/json",
+                "Authorization": `Bearer ${lowback_token}`
+            }
+        }); 
 
-    if (res.ok) {
-        return await res.json();
-      } else {
-        throw new Error(res.status + res.text)
+        console.log('\n\n--NEW block--', res, '\n\n')
+
+        return res.data
+
+    } catch(e) {
+        throw new Error('failed updating post block:', e.message)
     }
 }
 
 export const countPostBlocks = async (id) => {
-    const res = await fetch(`${lowback_url}/get/galera/posts/${id}/data`, {
-        headers: {
-            Authorization: `Bearer ${lowback_token}`
-        }
-    })
+    try {
+        const res = await axios.get(`${lowback_url}/get/galera/posts/${id}/data`, {
+            headers: {
+                "Authorization": `Bearer ${lowback_token}`
+            }
+        }); 
 
-    if (res.ok) {
-        const blocks = await res.json();
-        return Object.values(blocks).length
-      } else {
-        throw new Error(res.status + res.text)
+        return Object.values(res.data).length
+
+    } catch(e) {
+        throw new Error('failed fetching count of posts:', e.message)
     }
 }
 
@@ -235,7 +236,6 @@ export const updatePath = async (id, path) => {
 }
 
 export const uploadFiles = async (formData) => {
-
     try {
         const res = await axios.post(`${lowback_url}/upload/files`, formData, {
             headers: {

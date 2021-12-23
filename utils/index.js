@@ -1,7 +1,5 @@
-import USID from 'usid';
 import querys from './querys';
 
-export const usid = new USID();
 
 export const removeFirstSlash = (str) => {
     let res = str.trim();
