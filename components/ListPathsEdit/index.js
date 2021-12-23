@@ -1,30 +1,32 @@
 import React, { useState, useEffect } from 'react';
 import styles from './ListPathsEdit.module.scss';
 import querys from "utils/querys";
-import { postMockup, pathMockup } from 'utils/mockups';
+import { pathMockup } from 'utils/mockups';
 import { uid } from 'uid/secure';
 
 const ListPathsEdit = () => {
 
   const [paths, setPaths] = useState([]);
 
-  useEffect(async () => {
+  useEffect(() => {
+    async function fetchData() {
 
-    const data = await querys.fetchPaths()
+      const data = await querys.fetchPaths()
 
-    let list = []
-
-    if(data){
-      for(let key in data){
-        list.push({
-          id: key,
-          ...data[key]
-        })
+      let list = []
+  
+      if(data){
+        for(let key in data){
+          list.push({
+            id: key,
+            ...data[key]
+          })
+        }
+        console.log('init posts',list)
+        setPaths(list)
       }
-      console.log('init posts',list)
-      setPaths(list)
     }
-
+    fetchData()
   }, []);
 
   const updatePaths = async () => {
@@ -80,10 +82,12 @@ const ListPathsEdit = () => {
           })}} />
         </div>
         <div className={styles.type}>
-          <input type="text" value={inputsValues.type} onChange={(e) => {setinputsValues({
+          <div className={styles.typeToggler} onClick={() => {setinputsValues({
             ...inputsValues,
-            type: e.target.value
-          })}} />
+            type: inputsValues.type === 'post' ? 'folder' : 'post'
+          })}} >
+            {inputsValues.type}
+          </div>
         </div>
         <div className={styles.title}>
           <input type="text" value={inputsValues.title} onChange={(e) => {setinputsValues({

@@ -4,6 +4,10 @@ import { oneImg } from 'components/renders/img/img.module.scss'
 import styles from 'components/renders/img/img.module.scss'
 import { uid } from 'uid/secure';
 
+const quality = 100;
+
+
+
 /**
  * without any size transformations
  */
@@ -40,6 +44,7 @@ export const normalEngine = ({ options, sources }) => {
                 layout="intrinsic"
                 width={width}
                 height={height}
+                quality={quality}
             />
         )
 
@@ -68,6 +73,7 @@ export const coverEngine = ({ options, sources }) => {
                         background-size: cover;
                         background-repeat: no-repeat;
                         background-attachment: fixed;
+                        background-position: center;
                     }
                 `}</style>
                 <div className={`img-c-${id}`}></div>
@@ -113,6 +119,7 @@ export const wideEngine = ({ options, sources }) => {
                 layout="responsive"
                 width={width}
                 height={height}
+                quality={quality}
             />
         )
 
@@ -213,8 +220,6 @@ const parseImg = (str) => {
     const { type, options, sources } = parseAttributes(str);
 
     const engine = imgTypes[checkType(type)]
-
-    console.log('\n\n=== engine ===', checkType(type), ' +++ ', type, '\n\n')
 
     return (
         <div className={styles[`img-${checkType(type)}`]}>

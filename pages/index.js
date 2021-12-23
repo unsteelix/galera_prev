@@ -1,7 +1,6 @@
-import Head from 'next/head'
 import { getPageTypeAndData } from 'utils'
 import Folder from 'components/Folder'
-import styles from './posts/posts.module.scss'
+import Page from 'components/Page'
 
 export default function Home(props) {
 
@@ -11,15 +10,9 @@ export default function Home(props) {
     const title = path.title
 
     return (
-        <>
-            <Head>
-                <title>{title}</title>
-                <meta name="description" content={title} />
-            </Head>
-            <div className={styles.wrap}>
-                <Folder children={payload} />
-            </div>
-        </>
+        <Page headtitle={title} headDescription={""} >
+            <Folder childrenPaths={payload} />
+        </Page>
     )
 }
 

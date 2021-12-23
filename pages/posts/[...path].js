@@ -1,8 +1,7 @@
-import Head from 'next/head'
+import Page from 'components/Page'
 import { removeFirstSlash, getPageTypeAndData } from 'utils'
 import { renderPageByType } from 'utils/renders'
 import querys from 'utils/querys'
-import styles from './posts.module.scss'
 
 export default function Post(props) {
 
@@ -12,15 +11,9 @@ export default function Post(props) {
     const title = path.title
 
     return (
-        <>
-            <Head>
-                <title>{title}</title>
-                <meta name="description" content={title} />
-            </Head>
-            <div className={type === 'post' ? styles.post : styles.folder}>
-                {renderPageByType(type, payload)}
-            </div>
-        </>
+        <Page headtitle={title} headDescription={""} >
+            {renderPageByType(type, payload)}
+        </Page>
     )
 }
 
@@ -49,11 +42,16 @@ export async function getStaticPaths() {
     const list = Object.values(data)
     const listPath = list.map(el => removeFirstSlash(el.path))
 
-    const paths = listPath.map(path => ({
-        params: {
-            path: [...path.split('/')]
+    const paths = [] 
+    listPath.forEach(path => {
+        if(path.length > 0) {
+            paths.push({
+                params: {
+                    path: [...path.split('/')]
+                }
+            })
         }
-    }))
+    })
 
     return { 
         paths,

@@ -9,22 +9,23 @@ const ListPostsEdit = () => {
 
   const [posts, setPosts] = useState([]);
 
-  useEffect(async () => {
+  useEffect(() => {
+    async function fetchData() {
+      const data = await querys.fetchPosts()
 
-    const data = await querys.fetchPosts()
-
-    let list = []
-
-    if(data){
-      for(let key in data){
-        list.push({
-          id: key,
-          ...data[key]
-        })
+      let list = []
+  
+      if(data){
+        for(let key in data){
+          list.push({
+            id: key,
+            ...data[key]
+          })
+        }
+        setPosts(list)
       }
-      setPosts(list)
     }
-
+    fetchData()
   }, []);
 
   const updatePosts = async () => {

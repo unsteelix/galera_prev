@@ -2,10 +2,10 @@ import Covers from 'components/Covers';
 import styles from './folder.module.scss';
 
 
-const Folder = ({children}) => {
+const Folder = ({childrenPaths}) => {
     return (
         <div className={styles.wrap}>
-            <Covers paths={children} />
+            <Covers paths={childrenPaths} />
         </div>
     )
 }

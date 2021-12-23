@@ -6,7 +6,9 @@ const Covers = (params) => {
 
     return (
         <div className={styles.wrap} >
-            {paths.map(el => <Cover key={el.id} path={el} />)}
+            <div className={styles.container}>
+                {paths.map(el => <div key={el.id} className={styles.oneCover}><Cover path={el} /></div>)}
+            </div>
         </div>
     )
 }
