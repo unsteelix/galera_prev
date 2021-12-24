@@ -13,12 +13,15 @@ const Cover = (params) => {
                 <a>
                 <div className={type === 'post' ? styles.post : styles.folder}>
                     <div className={styles.title}>{title}</div>
-                    <Image
-                        src={img}
-                        alt={title}
-                        layout="fill"
-                        objectFit="cover"
-                    />
+                    <div className={styles.imgContainer}>
+                        <Image
+                            src={img}
+                            alt={title}
+                            layout="fill"
+                            objectFit="cover"
+                            priority
+                        />
+                    </div>
                 </div>
                 </a>
             </Link>
