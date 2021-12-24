@@ -1,7 +1,9 @@
 import Page from 'components/Page'
-import { removeFirstSlash, getPageTypeAndData } from 'utils'
+import { removeFirstSlash, getPageTypeAndData, isLoggedIn } from 'utils'
 import { renderPageByType } from 'utils/renders'
 import querys from 'utils/querys'
+import { useEffect } from 'react'
+import { useState } from 'react'
 
 export default function Post(props) {
 
@@ -10,9 +12,19 @@ export default function Post(props) {
 
     const title = path.title
 
+
+    const [isLoggined, setIsLoggined] = useState(false)
+    useEffect(() => {
+        setIsLoggined(isLoggedIn())
+        console.log(']]]]', isLoggined)
+
+    }, []);
+
+
+
     return (
         <Page headtitle={title} headDescription={""} >
-            {renderPageByType(type, payload)}
+            {renderPageByType(type, payload, isLoggined)}
         </Page>
     )
 }

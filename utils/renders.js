@@ -35,12 +35,12 @@ export const renderBlock = (block) => {
 }
 
 
-export const renderPageByType = (type, payload) => {
+export const renderPageByType = (type, payload, isLoggined) => {
     if(type === 'post') {
         return <Post post={payload} />
     }
     if(type === 'folder') {
-        return <Folder children={payload} />
+        return <Folder children={payload} isLoggined={isLoggined} />
     }
 }
 

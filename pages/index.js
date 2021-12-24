@@ -1,6 +1,7 @@
-import { getPageTypeAndData } from 'utils'
+import { getPageTypeAndData, isLoggedIn } from 'utils'
 import Folder from 'components/Folder'
 import Page from 'components/Page'
+import { useState, useEffect } from 'react'
 
 export default function Home(props) {
 
@@ -9,9 +10,16 @@ export default function Home(props) {
 
     const title = path.title
 
+    const [isLoggined, setIsLoggined] = useState(false)
+    useEffect(() => {
+        setIsLoggined(isLoggedIn())
+        console.log(']]]]', isLoggined)
+
+    });
+
     return (
         <Page headtitle={title} headDescription={""} >
-            <Folder childrenPaths={payload} />
+            <Folder childrenPaths={payload} isLoggined={isLoggined} />
         </Page>
     )
 }

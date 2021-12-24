@@ -1,16 +1,45 @@
 import { GALERA_PASSWORD } from "utils/constants";
+import API from 'utils/APIs'
+import querys from "utils/querys";
+import axios from "axios";
+import { LOWBACK_URL, GALERA_TOKEN } from 'utils/constants'
 
-export function middleware(req, ev) {
+export async function middleware(req, ev) {
 
-    const { cookies } = req;
-    const { password } = cookies;
+    try {
+        const { cookies } = req;
+        const { password } = cookies;
+        const hrefFull = req.nextUrl.href;
+        const href = hrefFull.slice(6, hrefFull.length)
 
-    // if(!password) {
-    //     return new Response('You must be authorizated') 
-    // }
+        const isLoggedin = password === GALERA_PASSWORD
 
-    // if(password !== GALERA_PASSWORD) {
-    //     return new Response('Bad password') 
-    // }
 
+        let request = new Request(`${LOWBACK_URL}/get/galera/paths`, {
+            method: 'GET',
+            headers: new Headers({
+              'Content-Type': 'application/json; charset=UTF-8',
+              Authorization: `Bearer ${GALERA_TOKEN}`,
+            })
+        });
+
+        const resData = await fetch(request)
+        const paths = await resData.json()
+
+        //console.log('paths', paths)
+
+        let curPath = Object.values(paths).find(el => el.path === href);
+
+
+        // not auth user
+        if(!isLoggedin) {
+            if( (curPath.path === href) && curPath.isHidden ) {
+                return new Response('Is hidden path')
+            }
+        }
+
+    } catch(e) {
+        console.log(e)
+        return new Response(e.message)
+    }
 }

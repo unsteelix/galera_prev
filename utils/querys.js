@@ -201,6 +201,21 @@ export const fetchPaths = async () => {
     }
 }
 
+export const fetchPath = async ({ id }) => {
+    try {
+        const res = await axios.get(`${LOWBACK_URL}/get/galera/paths/${id}`, {
+            headers: {
+                Authorization: `Bearer ${GALERA_TOKEN}`,
+            }
+        })
+
+        return res.data
+        
+    } catch(e) {
+        throw new Error('[fetchPath]: ', e.message)
+    }
+}
+
 export const deletePath = async ({ id }) => {
     try {
         const res = await axios.get(`${LOWBACK_URL}/delete/galera/paths/${id}`, {
@@ -275,6 +290,7 @@ const querys = {
     countPostBlocks,
 
     fetchPaths,
+    fetchPath,
     deletePath,
     updatePath,
 

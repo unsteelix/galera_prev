@@ -12,6 +12,7 @@ const Api = async (method, data) => {
         return res.data
 
     } catch(e) {
+        console.log(`[API] ${method}:`, e.message)
         throw new Error(`[API] ${method}:`, e.message)
     }
 }

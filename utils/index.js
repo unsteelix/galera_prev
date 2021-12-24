@@ -127,7 +127,6 @@ export const isLoggedIn = () => {
     if(password) {
         return password
     }
-    return password
 }
 
 
