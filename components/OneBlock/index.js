@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import querys from 'utils/querys';
+import React, { useState } from 'react';
 import EditForm from '../EditBlockForm';
 import styles from './OneBlock.module.scss'
 import { renderBlock } from 'utils/renders';
+import API from 'utils/APIs'
 
 
 const LoadingState = () => <div className={styles.loadingState} >...Loading</div>
@@ -18,7 +18,7 @@ const OneBlock = (params) => {
 
     const refresh = async () => {
         changeState('loading')
-        const res = await querys.fetchPostBlock(postId, block.id)
+        const res = await API('fetchPostBlock', { postId, blockId: block.id })
         setBlock(res)
         changeState('view')
     }
@@ -30,15 +30,15 @@ const OneBlock = (params) => {
       setState(newState)
     }
 
-    const onSaveBtn = () => {
-        querys.updatePostDataBlock(postId, block)
-        refresh()
+    const onSaveBtn = async () => {
+      await API('updatePostDataBlock', { postId, block })
+      refresh()
     }
 
     const onDeleteBtn = async () => {
         const needDeleting = confirm('Точно удалить?');
         if(needDeleting){
-            await querys.deletePostBlock(postId, block.id)
+            await API('deletePostBlock', { postId, blockId: block.id })
             window.location.reload()
         }
     }

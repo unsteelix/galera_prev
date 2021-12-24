@@ -8,26 +8,26 @@ import { LOWBACK_URL, GALERA_TOKEN } from './constants';
  * @param {*} options { includeDeleted: true } - for fetching all posts, include deleted
  * @returns 
  */
-export const fetchPosts = async (options) => {
-    const res = await fetch(`${LOWBACK_URL}/get/galera/posts`, {
-        headers: {
-            Authorization: `Bearer ${GALERA_TOKEN}`
-        }
-    })
+export const fetchPosts = async ({ options }) => {
+    try {
+        const res = await axios.get(`${LOWBACK_URL}/get/galera/posts`, {
+            headers: {
+                "Authorization": `Bearer ${GALERA_TOKEN}`
+            }
+        }); 
 
-    if (res.ok) {
 
         /**
          * включая удаленные посты
          */
-        if(options && 'includeDeleted' in options && options.includeDeleted){
-            return await res.json();
+         if(options && 'includeDeleted' in options && options.includeDeleted){
+            return res.data;
         }
 
         /**
          * неудаленные
          */
-        const allPosts = await res.json();
+        const allPosts = res.data
 
         const posts = {}
 
@@ -39,123 +39,123 @@ export const fetchPosts = async (options) => {
         }
 
         return posts
-      } else {
-        throw new Error(res.status + res.text)
+
+    } catch(e) {
+        throw new Error('[fetchPosts]: ', e.message)
     }
 } 
 
-export const fetchPost = async (id) => {
-    const res = await fetch(`${LOWBACK_URL}/get/galera/posts/${id}`, {
-        headers: {
-            Authorization: `Bearer ${GALERA_TOKEN}`
-        }
-    })
+export const fetchPost = async ({ id }) => {
+    try {
+        const res = await axios.get(`${LOWBACK_URL}/get/galera/posts/${id}`, {
+            headers: {
+                "Authorization": `Bearer ${GALERA_TOKEN}`
+            }
+        }); 
 
-    if (res.ok) {
-        return await res.json();
-      } else {
-        throw new Error(res.status + res.text)
+        return res.data
+
+    } catch(e) {
+        throw new Error('[fetchPost]: ', e.message)
     }
 }
 
-export const fetchPostBlock = async (postId, blockId) => {
-    const res = await fetch(`${LOWBACK_URL}/get/galera/posts/${postId}/data/${blockId}`, {
-        headers: {
-            Authorization: `Bearer ${GALERA_TOKEN}`
-        }
-    })
+export const fetchPostBlock = async ({ postId, blockId }) => {
+    try {
+        const res = await axios.get(`${LOWBACK_URL}/get/galera/posts/${postId}/data/${blockId}`, {
+            headers: {
+                "Authorization": `Bearer ${GALERA_TOKEN}`
+            }
+        }); 
 
-    if (res.ok) {
-        return await res.json();
-      } else {
-        throw new Error(res.status + res.text)
+        return res.data
+
+    } catch(e) {
+        throw new Error('[fetchPostBlock]: ', e.message)
     }
 }
 
-export const addPost = async (id, post) => {
-    const res = await fetch(`${LOWBACK_URL}/push/galera/posts/${id}`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${GALERA_TOKEN}`,
-        },
-        body: JSON.stringify(post)
-    })
+export const addPost = async ({ id, post }) => {
+    try {
+        const res = await axios.post(`${LOWBACK_URL}/push/galera/posts/${id}`, JSON.stringify(post), {
+            headers: {
+                "Content-type": "application/json",
+                "Authorization": `Bearer ${GALERA_TOKEN}`
+            }
+        }); 
 
-    if (res.ok) {
-        return await res.json();
-      } else {
-        throw new Error(res.status + res.text)
+        return res.data
+
+    } catch(e) {
+        throw new Error('[addPost]: ', e.message)
     }
 }
 
-export const deletePost = async (id) => {
-    const res = await fetch(`${LOWBACK_URL}/push/galera/posts/${id}/isDeleted`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${GALERA_TOKEN}`,
-        },
-        body: true
-    })
+export const deletePost = async ({ id }) => {
+    try {
+        const res = await axios.post(`${LOWBACK_URL}/push/galera/posts/${id}/isDeleted`, true, {
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${GALERA_TOKEN}`,
+            }
+        }); 
 
-    if (res.ok) {
-        return await res.json();
-      } else {
-        throw new Error(res.status + res.text)
+        return res.data
+
+    } catch(e) {
+        throw new Error('[deletePost]: ', e.message)
     }
 }
 
-export const deletePostBlock = async (postId, blockId) => {
-    const res = await fetch(`${LOWBACK_URL}/delete/galera/posts/${postId}/data/${blockId}`, {
-        headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${GALERA_TOKEN}`,
-        }
-    })
+export const deletePostBlock = async ({ postId, blockId }) => {
+    try {
+        const res = await axios.get(`${LOWBACK_URL}/delete/galera/posts/${postId}/data/${blockId}`, {
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${GALERA_TOKEN}`,            
+            }
+        }); 
 
-    if (res.ok) {
-        return await res.json();
-      } else {
-        throw new Error(res.status + res.text)
+        return res.data
+
+    } catch(e) {
+        throw new Error('[deletePostBlock]: ', e.message)
     }
 }
 
-export const updatePostTitle = async (id, title) => {
-    const res = await fetch(`${LOWBACK_URL}/push/galera/posts/${id}/title`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${GALERA_TOKEN}`,
-        },
-        body: JSON.stringify(title)
-    })
+export const updatePostTitle = async ({ id, title }) => {
+    try {
+        const res = await axios.post(`${LOWBACK_URL}/push/galera/posts/${id}/title`, JSON.stringify(title), {
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${GALERA_TOKEN}`,
+            }
+        }); 
 
-    if (res.ok) {
-        return await res.json();
-      } else {
-        throw new Error(res.status + res.text)
+        return res.data
+
+    } catch(e) {
+        throw new Error('[updatePostTitle]: ', e.message)
     }
 }
 
-export const updatePostData = async (id, data) => {
-    const res = await fetch(`${LOWBACK_URL}/push/galera/posts/${id}/data`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${GALERA_TOKEN}`,
-        },
-        body: JSON.stringify(data)
-    })
+export const updatePostData = async ({ id, data }) => {
+    try {
+        const res = await axios.post(`${LOWBACK_URL}/push/galera/posts/${id}/data`, JSON.stringify(data), {
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${GALERA_TOKEN}`,            
+            }
+        })
 
-    if (res.ok) {
-        return await res.json();
-      } else {
-        throw new Error(res.status + res.text)
+        return res.data
+        
+    } catch(e) {
+        throw new Error('[updatePostData]: ', e.message)
     }
 }
 
-export const updatePostDataBlock = async (postId, block) => {
+export const updatePostDataBlock = async ({ postId, block }) => {
     try {
         const res = await axios.post(`${LOWBACK_URL}/merge/galera/posts/${postId}/data/${block.id}`, JSON.stringify(block), {
             headers: {
@@ -167,11 +167,11 @@ export const updatePostDataBlock = async (postId, block) => {
         return res.data
 
     } catch(e) {
-        throw new Error('failed updating post block:', e.message)
+        throw new Error('[updatePostDataBlock]: ', e.message)
     }
 }
 
-export const countPostBlocks = async (id) => {
+export const countPostBlocks = async ({ id }) => {
     try {
         const res = await axios.get(`${LOWBACK_URL}/get/galera/posts/${id}/data`, {
             headers: {
@@ -182,57 +182,58 @@ export const countPostBlocks = async (id) => {
         return Object.values(res.data).length
 
     } catch(e) {
-        throw new Error('failed fetching count of posts:', e.message)
+        throw new Error('[countPostBlocks]: ', e.message)
     }
 }
 
 export const fetchPaths = async () => {
-    const res = await fetch(`${LOWBACK_URL}/get/galera/paths`, {
-        headers: {
-            Authorization: `Bearer ${GALERA_TOKEN}`
-        }
-    })
+    try {
+        const res = await axios.get(`${LOWBACK_URL}/get/galera/paths`, {
+            headers: {
+                Authorization: `Bearer ${GALERA_TOKEN}`,
+            }
+        })
 
-    if (res.ok) {
-        return await res.json();
-      } else {
-        throw new Error(res.status + res.text)
+        return res.data
+        
+    } catch(e) {
+        throw new Error('[fetchPaths]: ', e.message)
     }
 }
 
-export const deletePath = async (id) => {
-    const res = await fetch(`${LOWBACK_URL}/delete/galera/paths/${id}`, {
-        headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${GALERA_TOKEN}`,
-        }
-    })
+export const deletePath = async ({ id }) => {
+    try {
+        const res = await axios.get(`${LOWBACK_URL}/delete/galera/paths/${id}`, {
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${GALERA_TOKEN}`,
+            }
+        })
 
-    if (res.ok) {
-        return await res.json();
-      } else {
-        throw new Error(res.status + res.text)
+        return res.data
+
+    } catch(e) {
+        throw new Error('[deletePath]: ', e.message)
     }
 }
 
-export const updatePath = async (id, path) => {
-    const res = await fetch(`${LOWBACK_URL}/merge/galera/paths/${id}`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${GALERA_TOKEN}`,
-        },
-        body: JSON.stringify(path)
-    })
+export const updatePath = async ({ id, path }) => {
+    try {
+        const res = await axios.post(`${LOWBACK_URL}/merge/galera/paths/${id}`, JSON.stringify(path), {
+            headers: {
+                "Content-type": "application/json",
+                "Authorization": `Bearer ${GALERA_TOKEN}`
+            }
+        }); 
 
-    if (res.ok) {
-        return await res.json();
-      } else {
-        throw new Error(res.status + res.text)
+        return res.data
+
+    } catch(e) {
+        throw new Error('[updatePath]: ', e.message)
     }
 }
 
-export const uploadFiles = async (formData) => {
+export const uploadFiles = async ({ formData }) => {
     try {
         const res = await axios.post(`${LOWBACK_URL}/upload/files`, formData, {
             headers: {
@@ -244,18 +245,18 @@ export const uploadFiles = async (formData) => {
         return res.data
 
     } catch(e) {
-        throw new Error('failed files uploading:', e.message)
+        throw new Error('[uploadFiles]: ', e.message)
     }
 }
 
-export const auth = async (pass) => {
+export const auth = async ({ pass }) => {
     try {
         const res = await axios.get(`/api/pass/${pass}`); 
 
         return res.data
 
     } catch(e) {
-        throw new Error('failed authentication:', e.message)
+        throw new Error('[auth]:', e.message)
     }
 }
 

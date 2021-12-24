@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import querys from "utils/querys";
+import API from "utils/APIs";
 import styles from './post.module.scss'
 import { blockMockup } from 'utils/mockups';
 import { BlocksWithEdit } from 'components/Blocks';
 import Head from 'next/head'
 import { uid } from 'uid/secure';
-
+import querys from 'utils/querys';
 
 const PostEdit = (props) => {
 
@@ -15,12 +15,15 @@ const PostEdit = (props) => {
   const onAddBtn = async () => {
     const newId = uid(14)
 
-    const count = await querys.countPostBlocks(post.id)
+    const count = await API('countPostBlocks', { id: post.id })
 
-    const res = await querys.updatePostDataBlock(post.id, {
-      ...blockMockup,
-      id: newId,
-      position: count
+    const res = await API('updatePostDataBlock', { 
+      postId: post.id, 
+      block: {
+        ...blockMockup,
+        id: newId,
+        position: count
+      }
     })
     
     setBlocks({
@@ -60,7 +63,7 @@ export async function getServerSideProps(context) {
   const { params } = context;
   const { id } = params;
 
-  const post = await querys.fetchPost(id)
+  const post = await querys.fetchPost({ id })
 
   return {
     props: { post },

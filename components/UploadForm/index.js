@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import querys from 'utils/querys';
 import styles from './uploadForm.module.scss';
 
@@ -24,7 +24,7 @@ const UploadForm = (props) => {
         });
 
 
-        const res = await querys.uploadFiles(formData);
+        const res = await querys.uploadFiles({ formData });
         setIsLoading(false)
 
         const message = res.map(el => el.value.id).join('\n')

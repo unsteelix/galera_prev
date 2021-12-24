@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { uid } from 'uid/secure';
 import styles from './ListPostsEdit.module.scss';
-import querys from "utils/querys";
 import { postMockup } from 'utils/mockups';
 import Link from 'next/link';
+import API from 'utils/APIs';
+
 
 const ListPostsEdit = () => {
 
@@ -11,7 +12,7 @@ const ListPostsEdit = () => {
 
   useEffect(() => {
     async function fetchData() {
-      const data = await querys.fetchPosts()
+      const data = await API('fetchPosts')
 
       let list = []
   
@@ -32,7 +33,7 @@ const ListPostsEdit = () => {
 
     setPosts([])
 
-    const posts = await querys.fetchPosts()
+    const posts = await API('fetchPosts')
     let list = []
 
     if(posts){
@@ -47,13 +48,13 @@ const ListPostsEdit = () => {
     const needDeleting = confirm('Точно удалить пост?')
 
     if(needDeleting) {
-      await querys.deletePost(id)
+      await API('deletePost', { id })
       updatePosts()
     }
   }
 
   const onUpdatePostBtn = async (id, title) => {
-    await querys.updatePostTitle(id, title)
+    await API('updatePostTitle', { id, title })
     updatePosts()
   }
 
@@ -65,7 +66,7 @@ const ListPostsEdit = () => {
       id: newId
     }
 
-    await querys.addPost(newId, post)
+    await API('addPost', { id: newId, post })
 
     updatePosts()
   }

@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import styles from './ListPathsEdit.module.scss';
-import querys from "utils/querys";
 import { pathMockup } from 'utils/mockups';
 import { uid } from 'uid/secure';
+import API from 'utils/APIs';
 
 const ListPathsEdit = () => {
 
@@ -11,7 +11,7 @@ const ListPathsEdit = () => {
   useEffect(() => {
     async function fetchData() {
 
-      const data = await querys.fetchPaths()
+      const data = await API('fetchPaths')
 
       let list = []
   
@@ -33,7 +33,7 @@ const ListPathsEdit = () => {
 
     setPaths([])
 
-    const paths = await querys.fetchPaths()
+    const paths = await API('fetchPaths')
     let list = []
 
     if(paths){
@@ -49,21 +49,26 @@ const ListPathsEdit = () => {
     const needDeleting = confirm('Точно удалить путь?')
 
     if(needDeleting) {
-      await querys.deletePath(id)
+      await API('deletePath', { id })
       updatePaths()
     }
   }
 
   const onUpdatePathBtn = async (id, path) => {
-    await querys.updatePath(id, path)
+
+    await API('updatePath', { id, path })
+
     updatePaths()
   }
 
   const onAddPathBtn = async () => {
     const newId = uid(14)
-    await querys.updatePath(newId, {
-      ...pathMockup,
-      id: newId
+    await API('updatePath', { 
+      id: newId, 
+      path: {
+        ...pathMockup,
+        id: newId
+      }
     })
     updatePaths()
   }

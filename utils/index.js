@@ -80,7 +80,7 @@ export const getPageTypeAndData = async (pathStr) => {
         if(type === 'post'){
     
             const postId = path.postId;
-            const post = await querys.fetchPost(postId);
+            const post = await querys.fetchPost({ id: postId });
     
             return {
                 props: {
@@ -95,7 +95,7 @@ export const getPageTypeAndData = async (pathStr) => {
         }
     
         if(type === 'folder'){
-    
+
             const children = getChildPaths(listPath, pathStr);
             const sortedChildren = sortByKey(children, 'priority')
 
@@ -140,7 +140,7 @@ export const isLoggedIn = () => {
  */
 export const logIn = async (pass) => {
     try {
-        const password = await querys.auth(pass)
+        const password = await querys.auth({ pass })
         if(!password) throw new Error('bad password')
 
         setCookie('password', password, { 'max-age': 3600 })
