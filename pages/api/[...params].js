@@ -1,5 +1,24 @@
-import axios from 'axios';
-import { LOWBACK_URL, GALERA_TOKEN } from './constants';
+import { GALERA_TOKEN, GALERA_PASSWORD } from 'utils/constants'
+
+
+export default async function api(req, res) {
+  
+    console.log('\n\n === ENVS ===', GALERA_TOKEN, GALERA_PASSWORD, '\n\n')
+
+    console.log('\n\n === API ===', req.query, '\n\n')
+
+
+
+
+    res.status(200).send(pass)
+}
+
+
+
+
+
+
+
 
 
 
@@ -8,7 +27,7 @@ import { LOWBACK_URL, GALERA_TOKEN } from './constants';
  * @param {*} options { includeDeleted: true } - for fetching all posts, include deleted
  * @returns 
  */
-export const fetchPosts = async (options) => {
+ export const fetchPosts = async (options) => {
     const res = await fetch(`${LOWBACK_URL}/get/galera/posts`, {
         headers: {
             Authorization: `Bearer ${GALERA_TOKEN}`
@@ -216,6 +235,10 @@ export const deletePath = async (id) => {
 }
 
 export const updatePath = async (id, path) => {
+
+    console.log('GGGG', GALERA_TOKEN)
+
+
     const res = await fetch(`${LOWBACK_URL}/merge/galera/paths/${id}`, {
         method: 'POST',
         headers: {
@@ -258,28 +281,3 @@ export const auth = async (pass) => {
         throw new Error('failed authentication:', e.message)
     }
 }
-
-
-
-const querys = {
-    fetchPosts,
-    fetchPost,
-    fetchPostBlock,
-    addPost,
-    deletePost,
-    deletePostBlock,
-    updatePostTitle,
-    updatePostData,
-    updatePostDataBlock,
-    countPostBlocks,
-
-    fetchPaths,
-    deletePath,
-    updatePath,
-
-    uploadFiles,
-
-    auth
-}
-
-export default querys

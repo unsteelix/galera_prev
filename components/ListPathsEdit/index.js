@@ -114,10 +114,12 @@ const ListPathsEdit = () => {
           })}} />
         </div>
         <div className={styles.isHidden}>
-          <input type="text" value={inputsValues.isHidden} onChange={(e) => {setinputsValues({
+          <div className={styles.isHiddenToggler} onClick={() => {setinputsValues({
             ...inputsValues,
-            isHidden: e.target.value
-          })}} />
+            isHidden: !inputsValues.isHidden
+          })}} >
+            {inputsValues.isHidden ? 'hide' : 'show'}
+          </div>
         </div>
         <div className={styles.deleteBtn} onClick={() => onDeletePathBtn(id)}>delete</div>
         <div className={styles.updateBtn} onClick={() => onUpdatePathBtn(id, inputsValues)}>update</div>

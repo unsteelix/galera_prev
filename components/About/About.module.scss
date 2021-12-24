@@ -1,0 +1,15 @@
+.wrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    height: 100vh;
+}
+
+.container {
+    font-size: 1rem;
+    
+    .oneRow {
+        margin: 3rem;
+    }
+}

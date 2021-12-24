@@ -3,7 +3,7 @@ import { wrap } from './PixelPerfect.module.scss';
 
 const deviceSizes = [640, 750, 828, 1080, 1200, 1920, 2048, 2560, 3840]
 
-const PixelPerfect = () => {
+const PixelPerfect = ({ type }) => {
 
     const isBrowser = typeof window !== "undefined"
 
@@ -21,10 +21,13 @@ const PixelPerfect = () => {
         }
     }
 
+    const Icon = () => <div>icon</div>
+
 
     return (
         <div className={wrap} suppressHydrationWarning >
-            {size.width} {deviceSizes.includes(size.width) && 'perfect'}
+            {type === 'icon' &&  (deviceSizes.includes(size.width) &&  <Icon />)}
+            {type === 'value' && size.width}
         </div>
     )
 }

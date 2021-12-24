@@ -1,4 +1,4 @@
-import { lowback_url } from './querys';
+import { LOWBACK_URL } from './constants';
 import Image from 'next/image'
 import { oneImg } from 'components/renders/img/img.module.scss'
 import styles from 'components/renders/img/img.module.scss'
@@ -154,7 +154,7 @@ export const isLowbackFileId = (str) => {
 }
 
 export const lowbackFileIdToUrl = (fileId) => {
-    return `${lowback_url}/files/${fileId}`
+    return `${LOWBACK_URL}/files/${fileId}`
 }
 
 

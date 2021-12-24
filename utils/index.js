@@ -115,3 +115,87 @@ export const getPageTypeAndData = async (pathStr) => {
         throw new Error('failed when fetching page type and data', e)
     }    
 }
+
+
+/**
+ * 
+ * @returns true if the current user is logged in
+ */
+export const isLoggedIn = () => {
+    const password = getCookie('password')
+
+    if(password) {
+        return password
+    }
+    return password
+}
+
+
+/**
+ * checking password
+ * setting password cookie
+ * 
+ * @param {string} pass 
+ * @returns 
+ */
+export const logIn = async (pass) => {
+    try {
+        const password = await querys.auth(pass)
+        if(!password) throw new Error('bad password')
+
+        setCookie('password', password, { 'max-age': 3600 })
+
+        return password
+        
+    } catch(e) {
+        console.error('failed loggining: ', e.message)
+        return false
+    }
+}
+
+/**
+ * deleting password cookie
+ */
+export const logOut = () => {
+    deleteCookie('password')
+}
+
+
+export const getCookie = (name) => {
+    let matches = document.cookie.match(new RegExp(
+      "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+    ));
+    return matches ? decodeURIComponent(matches[1]) : undefined;
+}
+
+
+export const setCookie = (name, value, options = {}) => {
+
+    options = {
+      path: '/',
+      ...options
+    };
+  
+    if (options.expires instanceof Date) {
+      options.expires = options.expires.toUTCString();
+    }
+  
+    let updatedCookie = encodeURIComponent(name) + "=" + encodeURIComponent(value);
+  
+    for (let optionKey in options) {
+      updatedCookie += "; " + optionKey;
+      let optionValue = options[optionKey];
+      if (optionValue !== true) {
+        updatedCookie += "=" + optionValue;
+      }
+    }
+  
+    document.cookie = updatedCookie;
+}
+
+
+export const deleteCookie = (name) => {
+    setCookie(name, "", {
+        'max-age': -1
+    })
+}
