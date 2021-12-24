@@ -1,7 +1,4 @@
 import { GALERA_PASSWORD } from "utils/constants";
-import API from 'utils/APIs'
-import querys from "utils/querys";
-import axios from "axios";
 import { LOWBACK_URL, GALERA_TOKEN } from 'utils/constants'
 
 export async function middleware(req, ev) {
@@ -26,10 +23,7 @@ export async function middleware(req, ev) {
         const resData = await fetch(request)
         const paths = await resData.json()
 
-        //console.log('paths', paths)
-
         let curPath = Object.values(paths).find(el => el.path === href);
-
 
         // not auth user
         if(!isLoggedin) {

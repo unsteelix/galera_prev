@@ -13,6 +13,8 @@ const LoginForm = ({ setIsLogined }) => {
 
 
     const Button = () => <div className={button}>login</div>
+    
+    const router = useRouter()
 
     const hideMsgDelay = 2000;
     const passFetchingDelay = 2000;
@@ -44,6 +46,7 @@ const LoginForm = ({ setIsLogined }) => {
 
                 if(token) {
                     setIsLogined(true)
+                    router.reload()
                 } else {
                     showMessage('bad')
                     setinputValue('')

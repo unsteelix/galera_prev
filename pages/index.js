@@ -13,9 +13,7 @@ export default function Home(props) {
     const [isLoggined, setIsLoggined] = useState(false)
     useEffect(() => {
         setIsLoggined(isLoggedIn())
-        console.log(']]]]', isLoggined)
-
-    });
+    }, []);
 
     return (
         <Page headtitle={title} headDescription={""} >
@@ -25,7 +23,7 @@ export default function Home(props) {
 }
 
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
 
     const pathStr = '/'
 

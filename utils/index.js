@@ -125,8 +125,9 @@ export const isLoggedIn = () => {
     const password = getCookie('password')
 
     if(password) {
-        return password
+        return true
     }
+    return false
 }
 
 
