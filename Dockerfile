@@ -1,8 +1,7 @@
 FROM node:17
 WORKDIR /app
-COPY . .
-
 RUN npm install --global --force yarn
+COPY . .
 RUN yarn install
 RUN yarn build
 CMD ["yarn", "start"]
