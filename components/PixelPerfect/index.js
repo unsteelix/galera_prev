@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
-import { wrap } from './PixelPerfect.module.scss';
+import { wrap, icon } from './PixelPerfect.module.scss';
+import Image from 'next/image'
 
 const deviceSizes = [640, 750, 828, 1080, 1200, 1920, 2048, 2560, 3840]
 
@@ -21,7 +22,16 @@ const PixelPerfect = ({ type }) => {
         }
     }
 
-    const Icon = () => <div>icon</div>
+    const Icon = () => (
+        <div className={icon}>
+            <Image 
+                src={'/lightning.svg'}
+                objectFit='cover'
+                layout='fill'
+            />
+        </div>
+    )
+
 
 
     return (
