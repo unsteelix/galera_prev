@@ -28,7 +28,7 @@ export default function Post(props) {
 }
 
 
-export async function getStaticProps(context) {
+export async function getServerSideProps(context) {
 
     const { params } = context;
 
@@ -45,6 +45,7 @@ export async function getStaticProps(context) {
     return pageData
 }
 
+/*
 export async function getStaticPaths() {
     
     const data = await querys.fetchPaths();
@@ -68,3 +69,4 @@ export async function getStaticPaths() {
         fallback: 'blocking' 
     }
 }
+*/
