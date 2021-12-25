@@ -1,11 +1,14 @@
 import styles from './Cover.module.scss';
 import Image from 'next/image';
-import Link from 'next/link'
+import Link from 'next/link';
+import { isLowbackFileId, lowbackFileIdToUrl } from 'utils/imgParser';
 
 
 const Cover = (params) => {
 
     const { type, title, img, path } = params.path;
+
+    const imgPath = isLowbackFileId(img) ? lowbackFileIdToUrl(img) : img
 
     return (
         <div className={styles.wrap}>
@@ -16,7 +19,7 @@ const Cover = (params) => {
                     
                     <div className={styles.imgContainer}>
                         <Image
-                            src={img}
+                            src={imgPath}
                             alt={title}
                             layout="fill"
                             objectFit="cover"
@@ -30,6 +33,7 @@ const Cover = (params) => {
                                 src={'/folder.svg'}
                                 width={30}
                                 height={30}
+                                priority
                             />
                         </div>
                     )}

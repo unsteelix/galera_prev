@@ -117,9 +117,11 @@ export const wideEngine = ({ options, sources }) => {
                 src={lowbackFileIdToUrl(source)}
                 alt={source}
                 layout="responsive"
+                objectFit='cover'
                 width={width}
                 height={height}
                 quality={quality}
+                priority
             />
         )
 
