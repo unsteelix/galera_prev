@@ -1,13 +1,12 @@
-import { GALERA_PASSWORD } from "utils/constants";
-import { LOWBACK_URL, GALERA_TOKEN } from 'utils/constants'
+import { LOWBACK_URL, GALERA_TOKEN, GALERA_PASSWORD } from 'utils/constants'
 
 export async function middleware(req, ev) {
 
     try {
         const { cookies } = req;
         const { password } = cookies;
-        const hrefFull = req.nextUrl.href;
-        const href = hrefFull.slice(6, hrefFull.length)
+        const pathnameFull = req.nextUrl.pathname;
+        const pathname = pathnameFull.slice(6, pathnameFull.length)
 
         const isLoggedin = password === GALERA_PASSWORD
 
@@ -23,11 +22,15 @@ export async function middleware(req, ev) {
         const resData = await fetch(request)
         const paths = await resData.json()
 
-        let curPath = Object.values(paths).find(el => el.path === href);
+        let curPath = Object.values(paths).find(el => el.path === pathname);
+
+        console.log('\n\n----- middleware---', req.nextUrl, '\n\n', req.page, '\n\n')
+        console.log('\n\n----- middleware @@@---', pathname, '\n\n', req)
+
 
         // not auth user
         if(!isLoggedin) {
-            if( (curPath.path === href) && curPath.isHidden ) {
+            if( (curPath.path === pathname) && curPath.isHidden ) {
                 return new Response('Is hidden path')
             }
         }
