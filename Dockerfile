@@ -50,7 +50,6 @@ ENV \
   PKG_CONFIG="/bin/aarch64-linux-musl-pkg-config" \
   PLATFORM="linuxmusl-arm64v8" \
   CHOST="aarch64-linux-musl" \
-  RUST_TARGET="aarch64-unknown-linux-musl" \
   FLAGS="-march=armv8-a" \
   MESON="--cross-file=/root/meson.ini"
 
