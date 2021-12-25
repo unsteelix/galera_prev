@@ -1,0 +1,44 @@
+.wrap {
+    display: flex;
+    flex-direction: row;
+    justify-content: stretch;
+    align-items: center;
+
+    width: 100%;
+    height: 64px;
+    background-color: #566777;
+    color: ghostwhite;
+    font-size: 1.0rem;
+    padding: 1rem;
+}
+
+.listEL {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 0 1rem;
+    width: 100%;
+}
+
+.pixelPerfectIcon {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+}
+
+.pixelPerfectValue {
+    
+}
+
+.login {
+
+}
+
+.madeBy {
+
+}
+
+.about {
+
+}

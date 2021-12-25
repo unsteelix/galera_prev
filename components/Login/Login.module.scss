@@ -9,7 +9,7 @@
         .message {
             position: absolute;
             margin: 0 1rem;
-            top: 0px;
+            top: 0.3rem;
             left: 1rem;
             color: black;
             z-index: 10;
@@ -42,7 +42,6 @@
 
 
 .button {
-    margin: 0 1rem;
     cursor: pointer;
 
     &:hover {

@@ -25,6 +25,8 @@
 .img-wide {
     width: 100%;
     height: auto;
+    min-height: 100vh;
+    margin: 10vw 0;
 
     .oneImg {
         width: 100%;

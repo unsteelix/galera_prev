@@ -12,7 +12,7 @@ const LoginForm = ({ setIsLogined }) => {
     const [disabled, setDisabled] = useState(false)
 
 
-    const Button = () => <div className={button}>login</div>
+    const Button = () => <div className={button}>LOGIN</div>
     
     const router = useRouter()
 
@@ -86,7 +86,7 @@ const LogoutForm = ({ setIsLogined }) => {
 
     return (
         <div className={logoutForm} onClick={onClick}>
-            logout
+            LOGOUT
         </div>
     )
 }

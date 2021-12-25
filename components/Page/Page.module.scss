@@ -9,6 +9,7 @@
     position: fixed;
     top: 0px;
     left: 0px;
+    z-index: 1;
 
     .logo {
         position: relative;
@@ -30,38 +31,4 @@
 .content {
     width: 100%;
     min-height: 100vh;
-}
-
-.footer {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-
-    background-color: #222222;
-    color: ghostwhite;
-    font-size: 1.3rem;
-    padding: 1rem;
-}
-
-.login {
-
-}
-
-.madeBy {
-
-}
-
-.about {
-
-}
-
-.pixelPerfectIcon {
-    position: fixed;
-    top: 10px;
-    left: 10px;
-}
-
-.pixelPerfectValue {
-    
 }

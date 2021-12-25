@@ -22,7 +22,7 @@ export default function Post(props) {
 
     return (
         <Page headtitle={title} headDescription={""} >
-            {renderPageByType(type, payload, isLoggined)}
+            {renderPageByType(type, payload, path, isLoggined)}
         </Page>
     )
 }
