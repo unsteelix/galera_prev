@@ -6,10 +6,9 @@ export async function middleware(req, ev) {
         const { cookies } = req;
         const { password } = cookies;
         const pathnameFull = req.nextUrl.pathname;
-        const pathname = pathnameFull.slice(6, pathnameFull.length)
+        const pathname = pathnameFull.slice(6, pathnameFull.length) || '/'
 
         const isLoggedin = password === GALERA_PASSWORD
-
 
         let request = new Request(`${LOWBACK_URL}/get/galera/paths`, {
             method: 'GET',
@@ -23,10 +22,6 @@ export async function middleware(req, ev) {
         const paths = await resData.json()
 
         let curPath = Object.values(paths).find(el => el.path === pathname);
-
-        console.log('\n\n----- middleware---', req.nextUrl, '\n\n', req.page, '\n\n')
-        console.log('\n\n----- middleware @@@---', pathname, '\n\n', req)
-
 
         // not auth user
         if(!isLoggedin) {
