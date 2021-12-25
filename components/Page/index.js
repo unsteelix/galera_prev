@@ -17,7 +17,9 @@ const Page = (params) => {
             <div className={header}>
                 <div className={logo}>
                     <Link href={'/'}>
+                        <a>
                         <Image src="/logo.svg" height={30} width={30} />
+                        </a>
                     </Link>
                 </div>
             </div>
