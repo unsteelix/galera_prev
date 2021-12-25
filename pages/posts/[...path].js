@@ -28,7 +28,7 @@ export default function Post(props) {
 }
 
 
-export async function getStaticProps(context) {
+export async function getServerSideProps(context) {
 
     const { params } = context;
 
@@ -46,26 +46,26 @@ export async function getStaticProps(context) {
 }
 
 
-export async function getStaticPaths() {
+// export async function getStaticPaths() {
     
-    const data = await querys.fetchPaths();
+//     const data = await querys.fetchPaths();
     
-    const list = Object.values(data)
-    const listPath = list.map(el => removeFirstSlash(el.path))
+//     const list = Object.values(data)
+//     const listPath = list.map(el => removeFirstSlash(el.path))
 
-    const paths = [] 
-    listPath.forEach(path => {
-        if(path.length > 0) {
-            paths.push({
-                params: {
-                    path: [...path.split('/')]
-                }
-            })
-        }
-    })
+//     const paths = [] 
+//     listPath.forEach(path => {
+//         if(path.length > 0) {
+//             paths.push({
+//                 params: {
+//                     path: [...path.split('/')]
+//                 }
+//             })
+//         }
+//     })
 
-    return { 
-        paths,
-        fallback: 'blocking' 
-    }
-}
+//     return { 
+//         paths,
+//         fallback: 'blocking' 
+//     }
+// }
