@@ -4,7 +4,7 @@ import { oneImg } from 'components/renders/img/img.module.scss'
 import styles from 'components/renders/img/img.module.scss'
 import { uid } from 'uid/secure';
 
-const quality = 100;
+const quality = 85;
 
 
 
@@ -121,7 +121,6 @@ export const wideEngine = ({ options, sources }) => {
                 width={width}
                 height={height}
                 quality={quality}
-                priority
             />
         )
 
