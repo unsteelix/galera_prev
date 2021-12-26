@@ -71,7 +71,7 @@ const ListPostsEdit = () => {
     updatePosts()
   }
 
-  const OnePost = ({post}) => {
+  const OnePost = ({ post }) => {
     const { id, title } = post;
 
     const [inputVal, setInputVal] = useState(title)

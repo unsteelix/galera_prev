@@ -46,6 +46,7 @@ export async function getServerSideProps(context) {
 }
 
 
+
 // export async function getStaticPaths() {
     
 //     const data = await querys.fetchPaths();

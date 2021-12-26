@@ -118,7 +118,7 @@ export const wideEngine = ({ options, sources }) => {
                 key={`img-wide-${source}-${i}`}
                 src={source}
                 alt={source}
-                layout="responsive"
+                layout='responsive'
                 objectFit='cover'
                 width={width}
                 height={height}
@@ -168,15 +168,33 @@ export const isLowbackFileId = (str) => {
     return false
 }
 
-export const lowbackFileIdToUrl = async (fileId) => {
 
-    const file = await querys.fetchFileById({
-        id: fileId
-    })
+/**
+ * return true, if this str - fileName from lowback
+ */
+export const isLowbackFileName = (str) => {
+    const parts = str.split('.')
 
-    console.log('\n\n++++', file, '\n\n')
+    if(parts.length === 2) {
+        const name = parts[0]
 
-    return `${LOWBACK_URL}/${fileId}.${file.format}`
+        if(!isValidURL(name) && name.length >= 14 && name.split('_').length === 3){
+            return true
+        }
+    }
+
+    return false
+}
+
+
+
+export const lowbackFileNameToUrl = (fileName) => {
+
+    const res = `/api/image/${fileName}`
+        
+    console.log(`[${fileName}] => [${res}]`)
+
+    return res
 }
 
 
@@ -242,37 +260,44 @@ const parseImg = (str) => {
     
     const { type, options, sources } = parseAttributes(str);
 
-    const [data, setData] = useState('Loading')
-    let newSources = []
+    //const [data, setData] = useState('Loading')
 
-    useEffect( async () => {
+    const newSources = sources.map(source => isLowbackFileName(source) ? lowbackFileNameToUrl(source) : source)
 
-        try {
-
-            for (const source of sources) {
-                const newSource = isLowbackFileId(source) ? await lowbackFileIdToUrl(source) : source;
-                newSources.push(newSource)
-            }
-
-            const engine = imgTypes[checkType(type)]
+    const engine = imgTypes[checkType(type)]
             
-            console.log('\n\nSOURSED', newSources, '\n\n')
 
-            setData(engine({ 
-                sources: newSources, 
-                options 
-            }))
+    // useEffect( async () => {
 
-        } catch(e) {
-            console.error(`failed rendering img ${type} block: ` + e.message)
-            setData(<div>{e.message}</div>)
-        }
+    //     try {
+
+    //         for (const source of sources) {
+    //             const newSource = isLowbackFileId(source) ? await lowbackFileIdToUrl(source) : source;
+    //             newSources.push(newSource)
+    //         }
+
+    //         const engine = imgTypes[checkType(type)]
+            
+    //         console.log('\n\nSOURSED', newSources, '\n\n')
+
+    //         setData(engine({ 
+    //             sources: newSources, 
+    //             options 
+    //         }))
+
+    //     } catch(e) {
+    //         console.error(`failed rendering img ${type} block: ` + e.message)
+    //         setData(<div>{e.message}</div>)
+    //     }
         
-    }, []);
+    // }, []);
 
     return (
         <div className={styles[`img-${checkType(type)}`]}>
-            {data}
+            {engine({ 
+                sources: newSources, 
+                options 
+            })}
         </div>
     )
 }

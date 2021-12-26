@@ -1,26 +1,27 @@
 import styles, { wrap } from './PostHead.module.scss';
 import Image from 'next/image';
 import { useState, useEffect } from 'react';
-import { isLowbackFileId, lowbackFileIdToUrl } from 'utils/imgParser';
+import { isLowbackFileName, lowbackFileNameToUrl } from 'utils/imgParser';
 
 
 const PostHead  = ({ title, img }) => {
 
-    const [isReady, setIsReady] = useState(false);
-    const [imgPath, setImgPath] = useState(img);
+    // const [isReady, setIsReady] = useState(false);
+    // const [imgPath, setImgPath] = useState(img);
 
-    useEffect(async () => {
+    // useEffect(async () => {
 
-        if( isLowbackFileId(img) ) {
-            const res = await lowbackFileIdToUrl(img)
+    //     if( isLowbackFileId(img) ) {
+    //         const res = await lowbackFileIdToUrl(img)
             
-            setImgPath(res)
-            setIsReady(true)
-        }
-        setIsReady(true)
+    //         setImgPath(res)
+    //         setIsReady(true)
+    //     }
+    //     setIsReady(true)
 
-    }, []);
+    // }, []);
 
+    const imgPath = isLowbackFileName(img) ? lowbackFileNameToUrl(img) : img;
 
     return (
         <div className={ wrap }>
@@ -28,14 +29,10 @@ const PostHead  = ({ title, img }) => {
                 { title }
             </div>
             <div className={ styles.imgWrap }>
-            {isReady ? (
-                <Image 
+                <img 
+                    className={ styles.img }
                     src={imgPath}
-                    priority 
-                    objectFit='cover'
-                    layout="fill"
                 />
-            ) : 'Loading'}
             </div>
         </div>
     )

@@ -5,4 +5,10 @@ services:
       context: .
     ports:
       - 3000:3000
+    volumes:
+      - lowback_lowback_volume:/app/volume
     restart: always
+
+volumes:
+  lowback_lowback_volume:
+    external: true
