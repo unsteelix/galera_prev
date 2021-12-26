@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import EditForm from '../EditBlockForm';
 import styles from './OneBlock.module.scss'
-import { renderBlock } from 'utils/renders';
+import Block from 'components/Block';
 import API from 'utils/APIs'
 
 
@@ -45,7 +45,7 @@ const OneBlock = (params) => {
   
     return (
       <div className={styles.wrap} onDoubleClick={() => changeState()}>
-        {state === 'view' && renderBlock(block)}
+        {state === 'view' && <Block block={block} />}
         {state === 'edit' && <EditForm block={block} onFormChange={(newBlock) => setBlock(newBlock)} onSaveBtn={() => onSaveBtn()} onDeleteBtn={() => onDeleteBtn()} />}
         {state === 'loading' && <LoadingState />}
       </div>

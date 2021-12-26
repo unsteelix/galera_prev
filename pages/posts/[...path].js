@@ -1,6 +1,6 @@
 import Page from 'components/Page'
 import { removeFirstSlash, getPageTypeAndData, isLoggedIn } from 'utils'
-import { renderPageByType } from 'utils/renders'
+import { PageByType } from 'utils/renders'
 import querys from 'utils/querys'
 import { useEffect, useState } from 'react'
 
@@ -22,7 +22,7 @@ export default function Post(props) {
 
     return (
         <Page headtitle={title} headDescription={""} >
-            {renderPageByType(type, payload, path, isLoggined)}
+            <PageByType type={type} payload={payload} path={path} isLoggined={isLoggined} />
         </Page>
     )
 }

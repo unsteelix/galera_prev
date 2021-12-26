@@ -1,7 +1,7 @@
 import styles from './img.module.scss';
 import parseImg from 'utils/imgParser';
 
-const imgRender = (block) => {
+const IMGrender = ({ block }) => {
 
     const rawRows = block.data.split('\n');
     let rows = []
@@ -25,4 +25,4 @@ const imgRender = (block) => {
     )
 }
 
-export default imgRender
+export default IMGrender

@@ -1,7 +1,7 @@
 import showdown from 'showdown';
 import styles from './md.module.scss';
 
-const mdRender = (block) => {
+const MDrender = ({ block }) => {
     const converter = new showdown.Converter()
 
     return <div className={styles.wrap}>
@@ -11,4 +11,4 @@ const mdRender = (block) => {
     </div>
 }
 
-export default mdRender
+export default MDrender

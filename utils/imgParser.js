@@ -3,6 +3,8 @@ import Image from 'next/image'
 import { oneImg } from 'components/renders/img/img.module.scss'
 import styles from 'components/renders/img/img.module.scss'
 import { uid } from 'uid/secure';
+import querys from 'utils/querys';
+import { useState, useEffect } from 'react';
 
 const quality = 85;
 
@@ -13,12 +15,12 @@ const quality = 85;
  */
 export const normalEngine = ({ options, sources }) => {
 
-    return sources.map((source, i) => {
+    return sources.map( async (source, i) => {
 
         /**
          * external (NOT from lowback)
          */
-        if(isValidURL(source)) {
+        if(!isLowbackIMG(source)) {
             return (
                 <img
                     className={oneImg} 
@@ -39,7 +41,7 @@ export const normalEngine = ({ options, sources }) => {
             <Image
                 className={oneImg} 
                 key={`img-normal-${source}-${i}`}
-                src={lowbackFileIdToUrl(source)}
+                src={source}
                 alt={source}
                 layout="intrinsic"
                 width={width}
@@ -67,7 +69,7 @@ export const coverEngine = ({ options, sources }) => {
             <div className={oneImg} key={`img-cover-${id}`} >
                 <style jsx>{`
                     .img-c-${id} {
-                        background: url('${isLowbackFileId(source) ? lowbackFileIdToUrl(source) : source}') no-repeat;
+                        background: url('${source}') no-repeat;
                         width:100%;
                         height:100vh;
                         background-size: cover;
@@ -93,7 +95,7 @@ export const wideEngine = ({ options, sources }) => {
         /**
          * external (NOT from lowback)
          */
-        if(isValidURL(source)) {
+        if(!isLowbackIMG(source)) {
             return (
                 <img
                     className={oneImg} 
@@ -114,7 +116,7 @@ export const wideEngine = ({ options, sources }) => {
             <Image
                 className={oneImg}
                 key={`img-wide-${source}-${i}`}
-                src={lowbackFileIdToUrl(source)}
+                src={source}
                 alt={source}
                 layout="responsive"
                 objectFit='cover'
@@ -145,6 +147,17 @@ export const isValidURL = (str) => {
 };
 
 /**
+ * return true if img from lowback
+ */
+export const isLowbackIMG = (imgPath) => {
+    if(imgPath.includes(LOWBACK_URL)){
+        return true
+    } else {
+        return false
+    }
+}
+
+/**
  * return true, if this str - fileID from lowback
  */
 export const isLowbackFileId = (str) => {
@@ -155,8 +168,15 @@ export const isLowbackFileId = (str) => {
     return false
 }
 
-export const lowbackFileIdToUrl = (fileId) => {
-    return `${LOWBACK_URL}/files/${fileId}`
+export const lowbackFileIdToUrl = async (fileId) => {
+
+    const file = await querys.fetchFileById({
+        id: fileId
+    })
+
+    console.log('\n\n++++', file, '\n\n')
+
+    return `${LOWBACK_URL}/${fileId}.${file.format}`
 }
 
 
@@ -219,16 +239,40 @@ export const parseImgType = (str) => {
 
 
 const parseImg = (str) => {
+    
     const { type, options, sources } = parseAttributes(str);
 
-    const engine = imgTypes[checkType(type)]
+    const [data, setData] = useState('Loading')
+    let newSources = []
+
+    useEffect( async () => {
+
+        try {
+
+            for (const source of sources) {
+                const newSource = isLowbackFileId(source) ? await lowbackFileIdToUrl(source) : source;
+                newSources.push(newSource)
+            }
+
+            const engine = imgTypes[checkType(type)]
+            
+            console.log('\n\nSOURSED', newSources, '\n\n')
+
+            setData(engine({ 
+                sources: newSources, 
+                options 
+            }))
+
+        } catch(e) {
+            console.error(`failed rendering img ${type} block: ` + e.message)
+            setData(<div>{e.message}</div>)
+        }
+        
+    }, []);
 
     return (
         <div className={styles[`img-${checkType(type)}`]}>
-            {engine({ 
-                sources, 
-                options 
-            })}
+            {data}
         </div>
     )
 }

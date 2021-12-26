@@ -275,6 +275,17 @@ export const auth = async ({ pass }) => {
     }
 }
 
+export const fetchFileById = async ({ id }) => {
+    try {
+        const res = await axios.get(`${LOWBACK_URL}/files/${id}`); 
+
+        return res.data
+
+    } catch(e) {
+        throw new Error('[fetchFileById]:', e.message)
+    }
+}
+
 
 
 const querys = {
@@ -296,7 +307,9 @@ const querys = {
 
     uploadFiles,
 
-    auth
+    auth,
+
+    fetchFileById
 }
 
 export default querys
