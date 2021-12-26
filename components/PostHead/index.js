@@ -29,10 +29,16 @@ const PostHead  = ({ title, img }) => {
                 { title }
             </div>
             <div className={ styles.imgWrap }>
-                <img 
-                    className={ styles.img }
+                <img src={imgPath} />
+
+
+                 {/* <Image
                     src={imgPath}
-                />
+                    alt={imgPath}
+                    layout="fill"
+                    objectFit="cover"
+                    quality={100}
+                />  */}
             </div>
         </div>
     )
