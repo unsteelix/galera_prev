@@ -31,7 +31,7 @@ const EditBlockForm = (params) => {
 
     const onFinishUpload = (val) => {
 
-        const extra = '\n\n' + val.map(el => el.value.id).join('\n');
+        const extra = '\n' + val.map(el => `${el.value.id}.${el.value.format}`).join('\n');
 
         onFormChange({
             ...block,
