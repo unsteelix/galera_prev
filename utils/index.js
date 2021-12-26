@@ -199,3 +199,8 @@ export const deleteCookie = (name) => {
         'max-age': -1
     })
 }
+
+
+export const myLoader = ({ src, width, quality }) => {
+    return `${src}`
+}

@@ -1,12 +1,10 @@
-import { LOWBACK_URL } from './constants';
 import Image from 'next/image'
 import { oneImg } from 'components/renders/img/img.module.scss'
 import styles from 'components/renders/img/img.module.scss'
 import { uid } from 'uid/secure';
-import querys from 'utils/querys';
-import { useState, useEffect } from 'react';
+import { myLoader } from 'utils';
 
-const quality = 85;
+const quality = 100;
 
 
 
@@ -39,6 +37,7 @@ export const normalEngine = ({ options, sources }) => {
 
         return (
             <Image
+                loader={myLoader}
                 className={oneImg} 
                 key={`img-normal-${source}-${i}`}
                 src={source}
@@ -114,6 +113,7 @@ export const wideEngine = ({ options, sources }) => {
 
         return (
             <Image
+                loader={myLoader}
                 className={oneImg}
                 key={`img-wide-${source}-${i}`}
                 src={source}
@@ -150,7 +150,7 @@ export const isValidURL = (str) => {
  * return true if img from lowback
  */
 export const isLowbackIMG = (imgPath) => {
-    if(imgPath.includes(LOWBACK_URL)){
+    if(imgPath.includes('/api/image')){
         return true
     } else {
         return false

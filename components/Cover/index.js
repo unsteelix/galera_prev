@@ -2,8 +2,7 @@ import styles from './Cover.module.scss';
 import Image from 'next/image';
 import Link from 'next/link';
 import { isLowbackFileName, lowbackFileNameToUrl } from 'utils/imgParser';
-import { useState, useEffect } from 'react';
-
+import { myLoader } from 'utils';
 
 const Cover = (params) => {
 
@@ -32,8 +31,11 @@ const Cover = (params) => {
         <div className={styles.wrap}>
             <Link href={`/posts${path}`}>
                 <a>
-                    <img src={imgPath} />
-
+                    <Image 
+                        loader={myLoader}
+                        src={imgPath}
+                        priority
+                    />
                     <div className={styles.title}>{title}</div>
 
                     {type === 'folder' && (
