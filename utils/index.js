@@ -122,12 +122,18 @@ export const getPageTypeAndData = async (pathStr) => {
  * @returns true if the current user is logged in
  */
 export const isLoggedIn = () => {
-    const password = getCookie('password')
+    try {
+        const password = getCookie('password')
 
-    if(password) {
-        return true
+        if(password) {
+            return true
+        }
+        return false
+    } catch (e) {
+        console.log(e.message)
+        throw new Error('You are not authorizated')
+        //return false
     }
-    return false
 }
 
 
@@ -203,4 +209,14 @@ export const deleteCookie = (name) => {
 
 export const myLoader = ({ src, width, quality }) => {
     return `${src}`
+}
+
+export const parseSizeFromFileName = (fileName) => {
+    const [name, ext] = fileName.split('.')
+    const [other, width, height] = name.split('_')
+    
+    return {
+        width,
+        height
+    }
 }

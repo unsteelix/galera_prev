@@ -2,9 +2,9 @@ import Image from 'next/image'
 import { oneImg } from 'components/renders/img/img.module.scss'
 import styles from 'components/renders/img/img.module.scss'
 import { uid } from 'uid/secure';
-import { myLoader } from 'utils';
+import { myLoader, parseSizeFromFileName } from 'utils';
 
-const quality = 100;
+const quality = 50;
 
 
 
@@ -13,7 +13,7 @@ const quality = 100;
  */
 export const normalEngine = ({ options, sources }) => {
 
-    return sources.map( async (source, i) => {
+    return sources.map((source, i) => {
 
         /**
          * external (NOT from lowback)
@@ -32,8 +32,7 @@ export const normalEngine = ({ options, sources }) => {
         /**
          * from lowback
          */
-        const width = source.split('_')[1]
-        const height = source.split('_')[2]
+        const { width, height } = parseSizeFromFileName(source)
 
         return (
             <Image
@@ -108,8 +107,7 @@ export const wideEngine = ({ options, sources }) => {
         /**
          * from lowback
          */
-        const width = source.split('_')[1]
-        const height = source.split('_')[2]
+        const { width, height } = parseSizeFromFileName(source)
 
         return (
             <Image
@@ -123,6 +121,7 @@ export const wideEngine = ({ options, sources }) => {
                 width={width}
                 height={height}
                 quality={quality}
+                priority
             />
         )
         
@@ -260,37 +259,9 @@ const parseImg = (str) => {
     
     const { type, options, sources } = parseAttributes(str);
 
-    //const [data, setData] = useState('Loading')
-
     const newSources = sources.map(source => isLowbackFileName(source) ? lowbackFileNameToUrl(source) : source)
 
-    const engine = imgTypes[checkType(type)]
-            
-
-    // useEffect( async () => {
-
-    //     try {
-
-    //         for (const source of sources) {
-    //             const newSource = isLowbackFileId(source) ? await lowbackFileIdToUrl(source) : source;
-    //             newSources.push(newSource)
-    //         }
-
-    //         const engine = imgTypes[checkType(type)]
-            
-    //         console.log('\n\nSOURSED', newSources, '\n\n')
-
-    //         setData(engine({ 
-    //             sources: newSources, 
-    //             options 
-    //         }))
-
-    //     } catch(e) {
-    //         console.error(`failed rendering img ${type} block: ` + e.message)
-    //         setData(<div>{e.message}</div>)
-    //     }
-        
-    // }, []);
+    const engine = imgTypes[checkType(type)]            
 
     return (
         <div className={styles[`img-${checkType(type)}`]}>

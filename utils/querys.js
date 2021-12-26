@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { LOWBACK_URL, GALERA_TOKEN } from './constants';
+import { LOWBACK_URL, GALERA_TOKEN, LOWBACK_URL_FOR_ADMIN_UPLOAD_FORM } from './constants';
 
 
 
@@ -250,7 +250,8 @@ export const updatePath = async ({ id, path }) => {
 
 export const uploadFiles = async ({ formData }) => {
     try {
-        const res = await axios.post(`${LOWBACK_URL}/upload/files`, formData, {
+        console.log('\n\n ====WWWWWW======\n\n', LOWBACK_URL)
+        const res = await axios.post(`${LOWBACK_URL_FOR_ADMIN_UPLOAD_FORM}/upload/files`, formData, {
             headers: {
                 "Content-type": "multipart/form-data",
                 "Authorization": `Bearer ${GALERA_TOKEN}`

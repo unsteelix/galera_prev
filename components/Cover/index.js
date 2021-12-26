@@ -35,6 +35,8 @@ const Cover = (params) => {
                         loader={myLoader}
                         src={imgPath}
                         priority
+                        layout='fill'
+                        objectFit='cover'
                     />
                     <div className={styles.title}>{title}</div>
 
