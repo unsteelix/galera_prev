@@ -3,7 +3,7 @@ import EditForm from '../EditBlockForm';
 import styles from './OneBlock.module.scss'
 import Block from 'components/Block';
 import API from 'utils/APIs'
-
+import querys from 'utils/querys';
 
 const LoadingState = () => <div className={styles.loadingState} >...Loading</div>
 
@@ -31,8 +31,12 @@ const OneBlock = (params) => {
     }
 
     const onSaveBtn = async () => {
-      await API('updatePostDataBlock', { postId, block })
-      refresh()
+      try {
+        await API('updatePostDataBlock', { postId, block })
+        refresh()
+      } catch(e) {
+        console.log('Не смогли отправить данные: ', e)
+      }
     }
 
     const onDeleteBtn = async () => {

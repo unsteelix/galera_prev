@@ -20,6 +20,7 @@ export default function(req, res) {
 
         res.setHeader('Content-Type', `image/${ext}`)
         res.send(imageBuffer)
+        res.status(200)
 
     } catch(e) {
 

@@ -41,7 +41,8 @@ export const fetchPosts = async ({ options }) => {
         return posts
 
     } catch(e) {
-        throw new Error('[fetchPosts]: ', e.message)
+        console.log('ERROR [fetchPosts]', e.message)
+        throw new Error(e)
     }
 } 
 
@@ -56,7 +57,8 @@ export const fetchPost = async ({ id }) => {
         return res.data
 
     } catch(e) {
-        throw new Error('[fetchPost]: ', e.message)
+        console.log('ERROR [fetchPost]', e.message)
+        throw new Error(e)
     }
 }
 
@@ -71,13 +73,14 @@ export const fetchPostBlock = async ({ postId, blockId }) => {
         return res.data
 
     } catch(e) {
-        throw new Error('[fetchPostBlock]: ', e.message)
+        console.log('ERROR [fetchPostBlock]', e.message)
+        throw new Error(e)
     }
 }
 
 export const addPost = async ({ id, post }) => {
     try {
-        const res = await axios.post(`${LOWBACK_URL}/push/galera/posts/${id}`, JSON.stringify(post), {
+        const res = await axios.post(`${LOWBACK_URL_FOR_ADMIN_UPLOAD_FORM}/push/galera/posts/${id}`, JSON.stringify(post), {
             headers: {
                 "Content-type": "application/json",
                 "Authorization": `Bearer ${GALERA_TOKEN}`
@@ -87,13 +90,14 @@ export const addPost = async ({ id, post }) => {
         return res.data
 
     } catch(e) {
-        throw new Error('[addPost]: ', e.message)
+        console.log('ERROR [addPost]', e.message)
+        throw new Error(e)
     }
 }
 
 export const deletePost = async ({ id }) => {
     try {
-        const res = await axios.post(`${LOWBACK_URL}/push/galera/posts/${id}/isDeleted`, true, {
+        const res = await axios.post(`${LOWBACK_URL_FOR_ADMIN_UPLOAD_FORM}/push/galera/posts/${id}/isDeleted`, true, {
             headers: {
                 'Content-Type': 'application/json',
                 Authorization: `Bearer ${GALERA_TOKEN}`,
@@ -103,7 +107,8 @@ export const deletePost = async ({ id }) => {
         return res.data
 
     } catch(e) {
-        throw new Error('[deletePost]: ', e.message)
+        console.log('ERROR [deletePost]', e.message)
+        throw new Error(e)
     }
 }
 
@@ -119,13 +124,14 @@ export const deletePostBlock = async ({ postId, blockId }) => {
         return res.data
 
     } catch(e) {
-        throw new Error('[deletePostBlock]: ', e.message)
+        console.log('ERROR [deletePostBlock]', e.message)
+        throw new Error(e)
     }
 }
 
 export const updatePostTitle = async ({ id, title }) => {
     try {
-        const res = await axios.post(`${LOWBACK_URL}/push/galera/posts/${id}/title`, JSON.stringify(title), {
+        const res = await axios.post(`${LOWBACK_URL_FOR_ADMIN_UPLOAD_FORM}/push/galera/posts/${id}/title`, JSON.stringify(title), {
             headers: {
                 'Content-Type': 'application/json',
                 Authorization: `Bearer ${GALERA_TOKEN}`,
@@ -135,7 +141,8 @@ export const updatePostTitle = async ({ id, title }) => {
         return res.data
 
     } catch(e) {
-        throw new Error('[updatePostTitle]: ', e.message)
+        console.log('ERROR [updatePostTitle]', e.message)
+        throw new Error(e)
     }
 }
 
@@ -151,13 +158,14 @@ export const updatePostData = async ({ id, data }) => {
         return res.data
         
     } catch(e) {
-        throw new Error('[updatePostData]: ', e.message)
+        console.log('ERROR [updatePostData]', e.message)
+        throw new Error(e)    
     }
 }
 
 export const updatePostDataBlock = async ({ postId, block }) => {
     try {
-        const res = await axios.post(`${LOWBACK_URL}/merge/galera/posts/${postId}/data/${block.id}`, JSON.stringify(block), {
+        const res = await axios.post(`${LOWBACK_URL_FOR_ADMIN_UPLOAD_FORM}/merge/galera/posts/${postId}/data/${block.id}`, JSON.stringify(block), {
             headers: {
                 "Content-type": "application/json",
                 "Authorization": `Bearer ${GALERA_TOKEN}`
@@ -167,7 +175,8 @@ export const updatePostDataBlock = async ({ postId, block }) => {
         return res.data
 
     } catch(e) {
-        throw new Error('[updatePostDataBlock]: ', e.message)
+        console.log('ERROR [updatePostDataBlock]', e.message)
+        throw new Error(e)
     }
 }
 
@@ -182,7 +191,8 @@ export const countPostBlocks = async ({ id }) => {
         return Object.values(res.data).length
 
     } catch(e) {
-        throw new Error('[countPostBlocks]: ', e.message)
+        console.log('ERROR [countPostBlocks]', e.message)
+        throw new Error(e)
     }
 }
 
@@ -197,7 +207,8 @@ export const fetchPaths = async () => {
         return res.data
         
     } catch(e) {
-        throw new Error('[fetchPaths]: ', e.message)
+        console.log('ERROR [fetchPaths]', e.message)
+        throw new Error(e)
     }
 }
 
@@ -212,13 +223,14 @@ export const fetchPath = async ({ id }) => {
         return res.data
         
     } catch(e) {
-        throw new Error('[fetchPath]: ', e.message)
+        console.log('ERROR [fetchPath]', e.message)
+        throw new Error(e)
     }
 }
 
 export const deletePath = async ({ id }) => {
     try {
-        const res = await axios.get(`${LOWBACK_URL}/delete/galera/paths/${id}`, {
+        const res = await axios.get(`${LOWBACK_URL_FOR_ADMIN_UPLOAD_FORM}/delete/galera/paths/${id}`, {
             headers: {
                 'Content-Type': 'application/json',
                 Authorization: `Bearer ${GALERA_TOKEN}`,
@@ -228,13 +240,14 @@ export const deletePath = async ({ id }) => {
         return res.data
 
     } catch(e) {
-        throw new Error('[deletePath]: ', e.message)
+        console.log('ERROR [deletePath]', e.message)
+        throw new Error(e)
     }
 }
 
 export const updatePath = async ({ id, path }) => {
     try {
-        const res = await axios.post(`${LOWBACK_URL}/merge/galera/paths/${id}`, JSON.stringify(path), {
+        const res = await axios.post(`${LOWBACK_URL_FOR_ADMIN_UPLOAD_FORM}/merge/galera/paths/${id}`, JSON.stringify(path), {
             headers: {
                 "Content-type": "application/json",
                 "Authorization": `Bearer ${GALERA_TOKEN}`
@@ -244,13 +257,13 @@ export const updatePath = async ({ id, path }) => {
         return res.data
 
     } catch(e) {
-        throw new Error('[updatePath]: ', e.message)
+        console.log('ERROR [updatePath]', e.message)
+        throw new Error(e)
     }
 }
 
 export const uploadFiles = async ({ formData }) => {
     try {
-        console.log('\n\n ====WWWWWW======\n\n', LOWBACK_URL)
         const res = await axios.post(`${LOWBACK_URL_FOR_ADMIN_UPLOAD_FORM}/upload/files`, formData, {
             headers: {
                 "Content-type": "multipart/form-data",
@@ -261,7 +274,8 @@ export const uploadFiles = async ({ formData }) => {
         return res.data
 
     } catch(e) {
-        throw new Error('[uploadFiles]: ', e.message)
+        console.log('ERROR [uploadFiles]', e.message)
+        throw new Error(e)
     }
 }
 
@@ -272,7 +286,8 @@ export const auth = async ({ pass }) => {
         return res.data
 
     } catch(e) {
-        throw new Error('[auth]:', e.message)
+        console.log('ERROR [auth]', e.message)
+        throw new Error(e)
     }
 }
 
@@ -283,7 +298,8 @@ export const fetchFileById = async ({ id }) => {
         return res.data
 
     } catch(e) {
-        throw new Error('[fetchFileById]:', e.message)
+        console.log('ERROR [fetchFileById]', e.message)
+        throw new Error(e)
     }
 }
 

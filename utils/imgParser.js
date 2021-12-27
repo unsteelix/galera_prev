@@ -2,9 +2,9 @@ import Image from 'next/image'
 import { oneImg } from 'components/renders/img/img.module.scss'
 import styles from 'components/renders/img/img.module.scss'
 import { uid } from 'uid/secure';
-import { myLoader, parseSizeFromFileName } from 'utils';
+import { parseSizeFromFileName } from 'utils';
 
-const quality = 50;
+const quality = 85;
 
 
 
@@ -35,17 +35,18 @@ export const normalEngine = ({ options, sources }) => {
         const { width, height } = parseSizeFromFileName(source)
 
         return (
-            <Image
-                loader={myLoader}
-                className={oneImg} 
-                key={`img-normal-${source}-${i}`}
-                src={source}
-                alt={source}
-                layout="intrinsic"
-                width={width}
-                height={height}
-                quality={quality}
-            />
+            <div className={oneImg}>
+                <Image
+                    key={`img-normal-${source}-${i}`}
+                    src={source}
+                    alt={source}
+                    layout="intrinsic"
+                    width={width}
+                    height={height}
+                    priority
+                    quality={quality}
+                />
+            </div>
         )
 
     })
@@ -111,7 +112,6 @@ export const wideEngine = ({ options, sources }) => {
 
         return (
             <Image
-                loader={myLoader}
                 className={oneImg}
                 key={`img-wide-${source}-${i}`}
                 src={source}
@@ -121,7 +121,7 @@ export const wideEngine = ({ options, sources }) => {
                 width={width}
                 height={height}
                 quality={quality}
-                priority
+                
             />
         )
         
@@ -149,7 +149,7 @@ export const isValidURL = (str) => {
  * return true if img from lowback
  */
 export const isLowbackIMG = (imgPath) => {
-    if(imgPath.includes('/api/image')){
+    if(imgPath.includes('/volume/files')){
         return true
     } else {
         return false
@@ -189,7 +189,7 @@ export const isLowbackFileName = (str) => {
 
 export const lowbackFileNameToUrl = (fileName) => {
 
-    const res = `/api/image/${fileName}`
+    const res = `/volume/files/${fileName}`
         
     console.log(`[${fileName}] => [${res}]`)
 
@@ -258,6 +258,10 @@ export const parseImgType = (str) => {
 const parseImg = (str) => {
     
     const { type, options, sources } = parseAttributes(str);
+
+    /**
+     * 191a3a510fa253_1280_1920.jpg   =>   /volume/files/191a3a510fa253_1280_1920.jpg
+     */
 
     const newSources = sources.map(source => isLowbackFileName(source) ? lowbackFileNameToUrl(source) : source)
 

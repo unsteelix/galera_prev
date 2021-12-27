@@ -216,7 +216,7 @@ export const parseSizeFromFileName = (fileName) => {
     const [other, width, height] = name.split('_')
     
     return {
-        width,
-        height
+        width: parseInt(width),
+        height: parseInt(height)
     }
 }

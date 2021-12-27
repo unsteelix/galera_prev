@@ -1,7 +1,7 @@
 import styles, { wrap } from './PostHead.module.scss';
 import Image from 'next/image';
 import { isLowbackFileName, lowbackFileNameToUrl } from 'utils/imgParser';
-import { myLoader } from 'utils'
+
 
 
 const PostHead  = ({ title, img }) => {
@@ -15,7 +15,6 @@ const PostHead  = ({ title, img }) => {
             </div>
             <div className={ styles.imgWrap }>
                 <Image
-                    loader={myLoader}
                     src={imgPath}
                     alt={imgPath}
                     layout="fill"

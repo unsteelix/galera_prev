@@ -2,26 +2,11 @@ import styles from './Cover.module.scss';
 import Image from 'next/image';
 import Link from 'next/link';
 import { isLowbackFileName, lowbackFileNameToUrl } from 'utils/imgParser';
-import { myLoader } from 'utils';
+
 
 const Cover = (params) => {
 
     const { type, title, img, path } = params.path;
-
-    // const [isReady, setIsReady] = useState(false);
-    // const [imgPath, setImgPath] = useState(img);
-
-    // useEffect(async () => {
-
-    //     if( isLowbackFileId(img) ) {
-    //         const res = await lowbackFileIdToUrl(img)
-            
-    //         setImgPath(res)
-    //         setIsReady(true)
-    //     }
-    //     setIsReady(true)
-
-    // }, []);
 
     const imgPath = isLowbackFileName(img) ? lowbackFileNameToUrl(img) : img;
 
@@ -32,7 +17,6 @@ const Cover = (params) => {
             <Link href={`/posts${path}`}>
                 <a>
                     <Image 
-                        loader={myLoader}
                         src={imgPath}
                         priority
                         layout='fill'

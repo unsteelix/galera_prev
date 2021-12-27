@@ -7,6 +7,7 @@ services:
       - 3000:3000
     volumes:
       - lowback_lowback_volume:/app/volume
+      - lowback_lowback_volume:/app/public/volume
     restart: always
 
 volumes:
