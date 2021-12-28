@@ -8,7 +8,7 @@ export default function Home(props) {
     const { data } = props;
     const { path, payload } = data;
 
-    const title = path.title
+    const title = path.title;
 
     const [isLoggined, setIsLoggined] = useState(false)
     useEffect(() => {
