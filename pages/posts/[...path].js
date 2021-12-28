@@ -42,7 +42,10 @@ export async function getStaticProps(context) {
         }
     }
   
-    return pageData
+    return {
+        ...pageData,
+        revalidate: 60
+    }
 }
 
 
